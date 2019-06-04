@@ -1,0 +1,32 @@
+{
+  "name": "node-store",
+  "version": "1.0.0",
+  "description": "Simple api in NodeJS",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon ./bin/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FallSantos/node-store.git"
+  },
+  "keywords": [
+    "api",
+    "node",
+    "store"
+  ],
+  "author": "Flávio Santos",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/FallSantos/node-store/issues"
+  },
+  "homepage": "https://github.com/FallSantos/node-store#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "debug": "^4.1.1",
+    "express": "^4.17.0",
+    "http": "0.0.0",
+    "mysql": "^2.17.1",
+    "sequelize": "^5.8.7"
+  }
+}

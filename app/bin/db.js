@@ -2,13 +2,23 @@ require('dotenv').config()
 
 const mongoose = require('mongoose')
 
-mongoose.connect(`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0-4cxi0.mongodb.net/node-store`, { useNewUrlParser: true })
+const connection = () => {
+     mongoose.connect(`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0-4cxi0.mongodb.net/node-store`, { useNewUrlParser: true })
 
-const db = mongoose.connection
+     mongoose.connection
+          .on('error', console.error.bind(console, 'connection error: '))
+          .once('open', function () {
+               console.log(`>>> Database connect successfuly!`)
+               console.log('---------------------------------')
+          })
 
-db.on('error', console.error.bind(console, 'Database not connect: '));
-db.once('open', function () {
-     console.log('>>> Database connect successfuly!')
-});
+     return mongoose     
+}
 
-module.exports = db
+
+
+module.exports = (file) => {
+     console.log(`>>> Connection module loaded in ${file}`)
+     return connection 
+}
+

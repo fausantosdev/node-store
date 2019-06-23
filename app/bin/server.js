@@ -8,8 +8,6 @@ const product = require('../source/routes/product')
 
 const app = express()
 
-require('./db')// Só para debbug, comente essa linha antes de por para produção.
-
 // Configs
     // App
     app.set('port', process.env.PORT)
@@ -21,7 +19,5 @@ require('./db')// Só para debbug, comente essa linha antes de por para produç�
     // Rotas
     app.use('/', home)
     app.use('/product', product)
-
-    const config = []
 
 module.exports = app

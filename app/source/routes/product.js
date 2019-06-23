@@ -9,10 +9,10 @@ router.post('/', product.post)// Create
 
 router.get('/', product.get)// Read
 
-router.get('/:slug', product.get)// Read one
+router.get('/:slug', product.getOne)// Read one
 
-router.put('/:_id', product.put)// Update/ underline*
+router.put('/:id', product.put)// Update/ underline*
 
-router.delete('/:_id', product.remove)// Delete
+router.delete('/:id', product.remove)// Delete
 
 module.exports = router

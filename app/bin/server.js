@@ -5,10 +5,15 @@ const bodyParser = require('body-parser')// Converte o corpo da requisição par
 
 const home = require('../source/routes/home')
 const product = require('../source/routes/product')
+const costumer = require('../source/routes/costumer')
+const order = require('../source/routes/order')
 
 const app = express()
 
 // Configs
+    // Database connect
+    require('./db')
+
     // App
     app.set('port', process.env.PORT)
 
@@ -19,5 +24,7 @@ const app = express()
     // Rotas
     app.use('/', home)
     app.use('/product', product)
+    app.use('/costumer', costumer)
+    app.use('/order', order)
 
 module.exports = app

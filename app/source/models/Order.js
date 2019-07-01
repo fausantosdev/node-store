@@ -31,10 +31,6 @@ const orderSchema = new mongoose.Schema({
             default: 1
         }
     }],
-    total: {
-        type: Number,
-        require: true,
-    }
 }, {
     timestamps: true
 })

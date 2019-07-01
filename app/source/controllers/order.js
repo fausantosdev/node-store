@@ -9,13 +9,12 @@ exports.post = async (req, res, next) => {// Create
     console.log(`Request URL: ${req.originalUrl}`)
     console.log(`Request type: ${req.method}`)
 
-    const { costumer, items, total } = req.body
+    const { costumer, items } = req.body
 
     let order = new OrderModel({
-        code: functions.makeHash(6),
+        code: functions.makeHash(12),
         costumer,
-        items,  
-        total
+        items
     })
 
     try {
@@ -40,7 +39,7 @@ exports.get = async (req, res, next) => {// Read
     console.log(`Request type: ${req.method}`)
 
     try {
-        const orders = await  OrderModel.find({}, 'code status').sort('-createdAt')// Do último pro primeiro
+        const orders = await OrderModel.find({}, 'code status items').sort('-createdAt')// Do último pro primeiro
         .populate('costumer', 'name')// A função populate popula os campos na hora do g, por exemplo, com o id do usuário ele retorna as informações do usuário.
         .populate('items.product', 'title')
 
@@ -50,7 +49,7 @@ exports.get = async (req, res, next) => {// Read
 
         res.status(500).json({
             error: error
-        })
+        })  
     }
 
 }

@@ -27,7 +27,12 @@ const productSchema = new mongoose.Schema({
     tags: [{// array
         type: String,
         required: true,
-    }]
+    }],
+    image: {
+        type: String,
+        required: true,
+        trim: true
+    }
 }, {
     timestamps: true
 })

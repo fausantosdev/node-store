@@ -23,7 +23,7 @@ exports.post = async (req, res, next) => {// Create
 
     let order = new OrderModel({
         code: functions.makeHash(12),
-        costumer: data.id,// Que foi extraído do token.
+        custumer: data.id,// Que foi extraído do token.
         items// Que serão fornecidos pelo front.
     })
 
@@ -50,7 +50,7 @@ exports.get = async (req, res, next) => {// Read
 
     try {
         const orders = await OrderModel.find({}/*, 'code status items'*/).sort('-createdAt')// Do último pro primeiro
-            .populate('costumer', 'name')// A função populate popula os campos na hora do g, por exemplo, com o id do usuário ele retorna as informações do usuário.
+            .populate('custumer', 'name')// A função populate popula os campos na hora do g, por exemplo, com o id do usuário ele retorna as informações do usuário.
             .populate('items.product', 'title')
 
         res.status(200).json(orders)

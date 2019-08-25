@@ -5,26 +5,26 @@ const bodyParser = require('body-parser')// Converte o corpo da requisição par
 
 const home = require('../source/routes/home')
 const product = require('../source/routes/product')
-const costumer = require('../source/routes/costumer')
+const custumer = require('../source/routes/custumer')
 const order = require('../source/routes/order')
 
 const app = express()
 
 // Configs
-    // Database connect
-    require('./db')
+// Database connect
+require('./db')
 
-    // App
-    app.set('port', process.env.PORT)
+// App
+app.set('port', process.env.PORT)
 
-    // Body parser
-    app.use(bodyParser.urlencoded({ extended: false }))
-    app.use(bodyParser.json())
+// Body parser
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
 
-    // Rotas
-    app.use('/', home)
-    app.use('/product', product)
-    app.use('/costumer', costumer)
-    app.use('/order', order)
+// Rotas
+app.use('/', home)
+app.use('/product', product)
+app.use('/costumer', custumer)
+app.use('/order', order)
 
 module.exports = app

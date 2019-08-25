@@ -1,6 +1,6 @@
 require('dotenv').config()
 
-const CostumerModel = require('../models/Costumer')
+const CustumerModel = require('../models/Custumer')
 
 const md5 = require('md5')
 
@@ -17,7 +17,7 @@ exports.post = async (req, res, next) => {// Create
 
     const { name, email, password } = req.body
 
-    let costumer = new CostumerModel({
+    let custumer = new CustumerModel({
         name,
         email,
         password: md5(password + process.env.API_KEY)
@@ -25,7 +25,7 @@ exports.post = async (req, res, next) => {// Create
 
     try {
         // Sanva o item no banco
-        await costumer.save().then(() => {
+        await custumer.save().then(() => {
             const subject = 'Bem vindo a NodeStore!'
 
             const text = `Olá <strong>${name}</strong>!<br/>
@@ -55,7 +55,7 @@ exports.authenticate = async (req, res, next) => {// Autenticação.
     const { email, password } = req.body// Captura os dados de acesso.
 
     try {
-        const data = await CostumerModel.findOne({// Pesquisa se ha usuários com os dados fornecidos.
+        const data = await CustumerModel.findOne({// Pesquisa se ha usuários com os dados fornecidos.
             email,
             password: md5(password + process.env.API_KEY)
         })
@@ -95,7 +95,7 @@ exports.get = async (req, res, next) => {// Read
     console.log(`Request type: ${req.method}`)
 
     try {
-        const costumers = await CostumerModel.find({}).sort('-createdAt')// Do último pro primeiro
+        const costumers = await CustumerModel.find({}).sort('-createdAt')// Do último pro primeiro
 
         res.status(200).json(costumers)
 
@@ -116,9 +116,9 @@ exports.getOne = async (req, res, next) => {// Read one
     console.log(`Request type: ${req.method}`)
 
     try {
-        const costumer = await CostumerModel.find({ slug: req.params.id })
+        const custumer = await CustumerModel.find({ slug: req.params.id })
 
-        res.status(200).json(costumer)
+        res.status(200).json(custumer)
 
     } catch (error) {
 

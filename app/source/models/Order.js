@@ -6,9 +6,9 @@ const orderSchema = new mongoose.Schema({
         required: true,
         trim: true
     },
-    costumer: {
+    custumer: {
         type: mongoose.Schema.Types.ObjectId,// <-- referencia o cliente
-        ref: 'Costumer'
+        ref: 'Custumer'
     },
     status: {
         type: String,
@@ -32,8 +32,8 @@ const orderSchema = new mongoose.Schema({
         }
     }],
 }, {
-    timestamps: true
-})
+        timestamps: true
+    })
 
 module.exports = mongoose.model('Order', orderSchema)
 

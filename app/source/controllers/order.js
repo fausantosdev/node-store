@@ -2,6 +2,8 @@ const OrderModel = require('../models/Order')
 
 const functions = require('../../bin/functions')
 
+const authService = require('../../bin/auth')
+
 exports.post = async (req, res, next) => {// Create
 
     console.log('---------------------------------')
@@ -9,12 +11,20 @@ exports.post = async (req, res, next) => {// Create
     console.log(`Request URL: ${req.originalUrl}`)
     console.log(`Request type: ${req.method}`)
 
-    const { costumer, items } = req.body
+    // Recupera o token.
+    const token = req.body.token || req.query.token || req.headers['x-access-token']
+
+    // Decodifica o token.
+    const data = await authService.decodeToken(token)// Id, email e senha do usuário.
+
+    const { /*costumer,*/ items } = req.body
+
+    //res.json(data)
 
     let order = new OrderModel({
         code: functions.makeHash(12),
-        costumer,
-        items
+        costumer: data.id,// Que foi extraído do token.
+        items// Que serão fornecidos pelo front.
     })
 
     try {
@@ -39,22 +49,22 @@ exports.get = async (req, res, next) => {// Read
     console.log(`Request type: ${req.method}`)
 
     try {
-        const orders = await OrderModel.find({}, 'code status items').sort('-createdAt')// Do último pro primeiro
-        .populate('costumer', 'name')// A função populate popula os campos na hora do g, por exemplo, com o id do usuário ele retorna as informações do usuário.
-        .populate('items.product', 'title')
+        const orders = await OrderModel.find({}/*, 'code status items'*/).sort('-createdAt')// Do último pro primeiro
+            .populate('costumer', 'name')// A função populate popula os campos na hora do g, por exemplo, com o id do usuário ele retorna as informações do usuário.
+            .populate('items.product', 'title')
 
-        res.status(200).json(orders)    
+        res.status(200).json(orders)
 
     } catch (error) {
 
         res.status(500).json({
             error: error
-        })  
+        })
     }
 
 }
 
-exports.getOne = async (req, res, next) => {// Read one
+exports.getOne = async (req, res) => {// Read one
 
     console.log('---------------------------------')
     console.log('Time:', Date.now())
@@ -62,7 +72,8 @@ exports.getOne = async (req, res, next) => {// Read one
     console.log(`Request type: ${req.method}`)
 
     try {
-        const order = await  OrderModel.find({ slug: req.params.code })
+        const order = await OrderModel.findOne({ code: req.params.code })
+            .populate('costumer', 'name')
 
         res.status(200).json(order)
 

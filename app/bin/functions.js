@@ -2,7 +2,7 @@
 module.exports = {
     
     makeHash(tm){
-        var characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZ'
+        var characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVXWYZabcdefghijklmnopqrstuvxwyz1?-'
         var random = ''
         for (var i = 0; i < tm; i++) {
             var rnum = Math.floor(Math.random() * characters.length)

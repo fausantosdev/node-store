@@ -3,16 +3,18 @@ const express = require('express')
 // Controller
 const product = require('../controllers/product')
 
+const authService = require('../../bin/auth')
+
 const router = express.Router()
 
-router.post('/', product.post)// Create
+router.post('/', authService.authorize, product.post)// Create
 
-router.get('/', product.get)// Read
+router.get('/', authService.authorize, product.get)// Read
 
 router.get('/:slug', product.getOne)// Read one
 
-router.put('/:id', product.put)// Update/ underline*
+router.put('/:id', authService.authorize, product.put)// Update/ underline*
 
-router.delete('/:id', product.remove)// Delete
+router.delete('/:id', authService.authorize, product.remove)// Delete
 
 module.exports = router

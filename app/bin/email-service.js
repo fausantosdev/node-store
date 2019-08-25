@@ -2,13 +2,13 @@ require('dotenv').config()
 
 const sgMail = require('@sendgrid/mail')
 
-sgMail.setApiKey(process.env.SEND_GRID_KEY) 
+sgMail.setApiKey(process.env.SEND_GRID_KEY)
 
 exports.send = async (to, subject, body) => {
 
     const msg = {
-        to,
-        from: process.env.EMAIL,
+        to, // Para quem vai.
+        from: process.env.EMAIL,// Quem está mandando.
         subject,
         html: body
     }

@@ -4,7 +4,8 @@
   "description": "Simple api in NodeJS",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js"
+    "start": "node index.js",
+    "dev": "nodemon index.js"
   },
   "repository": {
     "type": "git",
@@ -23,10 +24,12 @@
   "homepage": "https://github.com/FallSantos/node-store#readme",
   "dependencies": {
     "@sendgrid/mail": "^6.4.0",
+    "azure-storage": "^2.10.3",
     "body-parser": "^1.19.0",
     "debug": "^4.1.1",
     "dotenv": "^8.0.0",
     "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
     "md5": "^2.2.1",
     "mongoose": "^5.6.1",
     "nodemailer": "^6.2.1",

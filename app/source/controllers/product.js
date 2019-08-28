@@ -4,6 +4,8 @@ const azure = require('azure-storage')
 
 const makeHash = require('../../bin/functions').makeHash
 
+const authService = require('../../bin/auth')
+
 exports.post = async (req, res, next) => {// Create
 
     console.log('---------------------------------')

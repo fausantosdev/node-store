@@ -24,7 +24,7 @@ app.use(bodyParser.json())
 // Rotas
 app.use('/', home)
 app.use('/product', product)
-app.use('/costumer', custumer)
+app.use('/custumer', custumer)
 app.use('/order', order)
 
 module.exports = app

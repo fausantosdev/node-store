@@ -9,7 +9,9 @@ const router = express.Router()
 
 router.post('/', custumer.post)// Create
 
-router.post('/auth', custumer.authenticate)// Autentication
+router.post('/authenticate', custumer.authenticate)// Autentication, não precisa de autorização, pois aquí que a mesma será criada.
+
+router.post('/refresh-token', authService.authorize, custumer.refreshToken)// Refresh token.
 
 router.get('/', authService.authorize, custumer.get)// Read
 

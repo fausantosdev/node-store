@@ -87,6 +87,48 @@ exports.authenticate = async (req, res, next) => {// Autenticação.
     }
 }
 
+exports.refreshToken = async (req, res, next) => {// Refresh token.  
+
+    console.log('---------------------------------')
+    console.log('Time:', Date.now())
+    console.log(`Request URL: ${req.originalUrl}`)
+    console.log(`Request type: ${req.method}`)
+
+    const token = req.body.token || req.query.token || req.headers['x-access-token']// Captura o token
+
+    const data = await authService.decodeToken(token)// Decodfica o token
+
+    const custumer = await CustumerModel.findById(data.id)
+
+    if (!custumer) {
+        res.status(404).send({
+            message: "Usuário ou senha inválidos!"
+        })
+    }
+
+    //res.json(custumer)
+    try {
+
+
+        const tokenData = await authService.generatedToken({
+            id: data._id,
+            email: data.email,
+            password: data.password
+        })
+
+        res.status(201).send({// Retorna o token e os dados do usuário.
+            token: tokenData,// Novo token gerado.
+            custumer// Dados do usuário.
+        })
+
+    } catch (error) {
+
+        res.status(500).json({
+            error: error
+        })
+    }
+}
+
 exports.get = async (req, res, next) => {// Read
 
     console.log('---------------------------------')

@@ -20,7 +20,8 @@ exports.post = async (req, res, next) => {// Create
     let custumer = new CustumerModel({
         name,
         email,
-        password: md5(password + process.env.API_KEY)
+        password: md5(password + process.env.API_KEY),
+        roles: ['user']
     })
 
     try {
@@ -71,7 +72,8 @@ exports.authenticate = async (req, res, next) => {// Autenticação.
         const token = await authService.generatedToken({
             id: data._id,
             email: data.email,
-            password: data.password
+            password: data.password,
+            roles: data.roles// user, admin ou user e admin.
         })
 
         res.status(200).send({// Retorna o token e os dados do usuário.
@@ -113,7 +115,8 @@ exports.refreshToken = async (req, res, next) => {// Refresh token.
         const tokenData = await authService.generatedToken({
             id: data._id,
             email: data.email,
-            password: data.password
+            password: data.password,
+            roles: data.roles// user, admin ou user e admin.
         })
 
         res.status(201).send({// Retorna o token e os dados do usuário.
@@ -167,6 +170,30 @@ exports.getOne = async (req, res, next) => {// Read one
         res.status(500).json({
             error: error
         })
+    }
+}
+
+exports.remove = async (req, res, next) => {
+
+    console.log('---------------------------------')
+    console.log('Time:', Date.now())
+    console.log(`Request URL: ${req.originalUrl}`)
+    console.log(`Request type: ${req.method}`)
+
+    try {
+        const customer = await CustumerModel.findOne({ _id: req.params.id })
+
+        if (!customer) {
+            res.status(401).send("User not found")
+
+            return
+        }
+
+        res.status(200).send("User removed")
+
+    } catch (error) {
+
+        res.status(500).send(false)
     }
 }
 

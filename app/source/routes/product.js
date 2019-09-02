@@ -7,14 +7,14 @@ const authService = require('../../bin/auth')
 
 const router = express.Router()
 
-router.post('/', authService.authorize, product.post)// Create
+router.post('/', authService.isAdmin, product.post)// Create
 
 router.get('/', authService.authorize, product.get)// Read
 
 router.get('/:slug', product.getOne)// Read one
 
-router.put('/:id', authService.authorize, product.put)// Update/ underline*
+router.put('/:id', authService.isAdmin, product.put)// Update
 
-router.delete('/:id', authService.authorize, product.remove)// Delete
+router.delete('/:id', authService.isAdmin, product.remove)// Delete
 
 module.exports = router

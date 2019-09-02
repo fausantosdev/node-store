@@ -17,5 +17,8 @@ router.get('/', authService.authorize, custumer.get)// Read
 
 router.get('/:id', custumer.getOne)// Read one
 
+//router.put('/:id', custumer.update)// Read one
+
+router.delete('/:id', custumer.remove)// Read one
 
 module.exports = router
